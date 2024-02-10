@@ -1,0 +1,1 @@
+import subprocess; import os; flutter_app_path =r"C:\Users\USER\Desktop\creed_gpt"; os.chdir(flutter_app_path); subprocess.run(['flutter', 'run'], shell=True)
