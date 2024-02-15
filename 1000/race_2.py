@@ -5,7 +5,7 @@ import random
 # Initialize Pygame
 pygame.init()
 
-# Set up the game window
+
 width, height = 800, 600  # You can change the initial window size here
 screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 pygame.display.set_caption("2-Player Race Game")
@@ -17,33 +17,33 @@ blue = (0, 0, 255)
 red = (255, 0, 0)
 yellow = (255, 255, 0)
 
-# Player 1 (Arrow keys)
+
 player1_x = width // 4
 player1_y = height // 2
 player1_speed = 5
 
-# Player 2 (WASD keys)
+
 player2_x = width * 3 // 4
 player2_y = height // 2
 player2_speed = 5
 
-# Obstacles
+
 obstacle_width = 20
 obstacle_height = 20
 obstacle_speed = 5
 obstacle_frequency = 25
 obstacles = []
 
-# Score
+
 score_player1 = 0
 score_player2 = 0
 font = pygame.font.SysFont(None, 36)
 
-# Game state
+
 game_over = False
 winner = None
 
-# Game loop
+
 clock = pygame.time.Clock()
 
 def reset_game():
@@ -64,7 +64,7 @@ while True:
             screen = pygame.display.set_mode((width, height), pygame.RESIZABLE)
 
     if not game_over:
-        # Move players
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP] and player1_y > player1_speed:
             player1_y -= player1_speed
@@ -84,14 +84,14 @@ while True:
         if keys[pygame.K_d] and player2_x < width - 50:
             player2_x += player2_speed
 
-        # Move obstacles
+       
         for obstacle in obstacles:
             obstacle[1] += obstacle_speed
             if obstacle[1] > height:  # Reset obstacle when it goes beyond the screen
                 obstacle[1] = -obstacle_height
                 obstacle[0] = random.randint(0, width - obstacle_width)
 
-        # Spawn obstacles
+        
         if random.randint(1, obstacle_frequency) == 1:
             spawn_direction = random.choice(["top", "left", "right"])
             if spawn_direction == "top":
@@ -101,7 +101,7 @@ while True:
             elif spawn_direction == "right":
                 obstacles.append([width, random.randint(0, height - obstacle_height)])
 
-        # Check for collisions
+        
         player1_rect = pygame.Rect(player1_x, player1_y, 20, 20)
         player2_rect = pygame.Rect(player2_x - 20, player2_y, 20, 20)
         for obstacle in obstacles:
@@ -113,7 +113,7 @@ while True:
                 game_over = True
                 winner = "Player 1"
 
-    # Draw everything
+    
     screen.fill(white)
 
     pygame.draw.rect(screen, green, [player1_x, player1_y, 20, 20])
@@ -133,10 +133,10 @@ while True:
 
     pygame.display.flip()
 
-    # Check for reset input
+    
     keys = pygame.key.get_pressed()
     if keys[pygame.K_r] and game_over:
         reset_game()
 
-    # Set the frame rate
+   
     clock.tick(30)

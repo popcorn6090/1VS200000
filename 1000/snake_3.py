@@ -4,21 +4,21 @@ import random
 
 pygame.init()
 
-# Define colors
+
 black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
 
-# Set up the game window
+
 width, height = 800, 600
 game_display = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Snake Game')
 
-# Snake properties
+
 snake_block = 10
 snake_speed = 15
 
-# Font for displaying the score
+
 font = pygame.font.SysFont(None, 35)
 
 def our_snake(snake_block, snake_list):
@@ -38,19 +38,19 @@ def game_loop():
     game_close = False
     game_pause = False
 
-    # Initial position of the snake
+    
     x1, y1 = width / 2, height / 2
 
-    # Initial movement direction of the snake
+    
     x1_change, y1_change = 0, 0
 
-    # Initial length of the snake
+    
     snake_length = 1
 
-    # Initial position of the food
+   
     foodx, foody = round(random.randrange(0, width - snake_block) / 10.0) * 10.0, round(random.randrange(0, height - snake_block) / 10.0) * 10.0
 
-    # Score tracking
+    
     score = 0
 
     snake_list = []
@@ -93,15 +93,15 @@ def game_loop():
         if game_pause:
             continue
 
-        # Update snake position
+        
         x1 += x1_change
         y1 += y1_change
 
-        # Check if the snake has hit the boundaries
+        
         if x1 >= width or x1 < 0 or y1 >= height or y1 < 0:
             game_close = True
 
-        # Update position of the food and check if snake has eaten it
+       
         if x1 == foodx and y1 == foody:
             foodx, foody = round(random.randrange(0, width - snake_block) / 10.0) * 10.0, round(random.randrange(0, height - snake_block) / 10.0) * 10.0
             snake_length += 1

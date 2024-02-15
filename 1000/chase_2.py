@@ -17,41 +17,41 @@ GREEN = (0, 255, 0)
 # Initialize Pygame
 pygame.init()
 
-# Set up window
+
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Minecraft-like Game")
 
-# Set up clock
+
 clock = pygame.time.Clock()
 
-# Set up player
+
 player_x, player_y = WIDTH // 2, HEIGHT // 2
 player_speed = 5
 original_speed = player_speed
 
-# Set up enemies
+
 enemy_x, enemy_y = random.randint(0, WIDTH - ENEMY_SIZE), random.randint(0, HEIGHT - ENEMY_SIZE)
 enemy_speed = 3
 
 enemy2_x, enemy2_y = random.randint(0, WIDTH - ENEMY_SIZE), random.randint(0, HEIGHT - ENEMY_SIZE)
 enemy2_speed = 2  # Different speed for the second enemy
 
-# Set up bricks
+
 bricks = [(100, 100), (300, 200), (500, 400)]  # Bricks at specific positions
 
-# Set up potion
+
 potion_x, potion_y = random.randint(0, WIDTH - POTION_SIZE), random.randint(0, HEIGHT - POTION_SIZE)
 potion_active = True
 
 # Set up sounds
 pygame.mixer.init()
 collision_sound = pygame.mixer.Sound(r"C:\Users\USER\Desktop\Music\01. shut up.mp3"
-)  # Replace with actual path
+)  # Replace with the  actual path of your music
 pickup_sound = pygame.mixer.Sound(r"C:\Users\USER\Desktop\Music\06. six thirty.mp3"
-)  # Replace with actual path
+)  # Replace with the  actual path of your music
 background_music = pygame.mixer.Sound(r"C:\Users\USER\Desktop\Music\05. off the table.mp3")  # Replace with actual path
 
-# Set up game variables
+
 score = 0
 spawn_potion_timer = 0
 spawn_potion_interval = 30 * 1000  # 30 seconds in milliseconds
@@ -59,7 +59,7 @@ running = True
 game_over = False
 paused = False
 
-# Start background music
+
 background_music.play(-1)  # -1 means loop indefinitely
 
 while running:
@@ -91,14 +91,14 @@ while running:
         for brick in bricks:
             pygame.draw.rect(win, GREY, (brick[0], brick[1], BLOCK_SIZE, BLOCK_SIZE))
 
-        # Draw player
+        
         pygame.draw.rect(win, RED, (player_x, player_y, PLAYER_SIZE, PLAYER_SIZE))
 
-        # Draw enemies (blue rectangles)
+    
         pygame.draw.rect(win, BLUE, (enemy_x, enemy_y, ENEMY_SIZE, ENEMY_SIZE))
         pygame.draw.rect(win, BLUE, (enemy2_x, enemy2_y, ENEMY_SIZE, ENEMY_SIZE))
 
-        # Spawn potion every 30 seconds
+        
         spawn_potion_timer += clock.get_rawtime()
         if spawn_potion_timer >= spawn_potion_interval:
             potion_x, potion_y = random.randint(0, WIDTH - POTION_SIZE), random.randint(0, HEIGHT - POTION_SIZE)
@@ -133,31 +133,31 @@ while running:
         if (player_x < enemy_x + ENEMY_SIZE and player_x + PLAYER_SIZE > enemy_x and
                 player_y < enemy_y + ENEMY_SIZE and player_y + PLAYER_SIZE > enemy_y):
             game_over = True
-            collision_sound.play()  # Play collision sound
-            background_music.stop()  # Stop background music
+            collision_sound.play()  
+            background_music.stop() 
 
         if (player_x < enemy2_x + ENEMY_SIZE and player_x + PLAYER_SIZE > enemy2_x and
                 player_y < enemy2_y + ENEMY_SIZE and player_y + PLAYER_SIZE > enemy2_y):
             game_over = True
-            collision_sound.play()  # Play collision sound
-            background_music.stop()  # Stop background music
+            collision_sound.play()  
+            background_music.stop()  
 
-        # Collision detection with potion
+        
         if (player_x < potion_x + POTION_SIZE and player_x + PLAYER_SIZE > potion_x and
                 player_y < potion_y + POTION_SIZE and player_y + PLAYER_SIZE > potion_y):
             potion_active = False
-            player_speed = 8  # Increase player speed after picking up potion
+            player_speed = 8 
             background_music.stop()
             pickup_sound.play()  # Play pickup sound
             pickup_sound.stop()
             background_music.play()
             
 
-        # Check if player escapes the enemies, increment score
+        
         if not game_over and all(player_x != brick[0] or player_y != brick[1] for brick in bricks):
             score += 10
 
-        # Display score
+        
         font = pygame.font.SysFont(None, 30)
         text = font.render(f"Score: {score}", True, WHITE)
         win.blit(text, (10, 10))
@@ -174,14 +174,14 @@ while running:
                 player_x, player_y = WIDTH // 2, HEIGHT // 2
                 enemy_x, enemy_y = random.randint(0, WIDTH - ENEMY_SIZE), random.randint(0, HEIGHT - ENEMY_SIZE)
                 enemy2_x, enemy2_y = random.randint(0, WIDTH - ENEMY_SIZE), random.randint(0, HEIGHT - ENEMY_SIZE)
-                spawn_potion_timer = 0  # Resetting potion timer
+                spawn_potion_timer = 0 
                 potion_active = False
                 
-                background_music.play(-1)  # Restart background music
+                background_music.play(-1)
                 collision_sound.stop()
                 pickup_sound.stop()
 
-    # Display pause text
+    
     if paused:
         font = pygame.font.SysFont(None, 40)
         text = font.render("Paused", True, WHITE)
@@ -193,7 +193,7 @@ while running:
     pygame.display.update()
     clock.tick(60)
 
-# Stop background music when exiting
+
 background_music.stop()
 
 pygame.quit()

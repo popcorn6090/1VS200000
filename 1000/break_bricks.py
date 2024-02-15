@@ -90,21 +90,21 @@ def main():
         keys = pygame.key.get_pressed()
         paddle.x += (keys[pygame.K_RIGHT] - keys[pygame.K_LEFT]) * 8
 
-        # Ball movement
+        
         ball.x += ball_speed[0]
         ball.y += ball_speed[1]
 
-        # Collisions with walls
+        
         if ball.left <= 0 or ball.right >= WIDTH:
             ball_speed[0] = -ball_speed[0]
         if ball.top <= 0:
             ball_speed[1] = -ball_speed[1]
 
-        # Collisions with paddle
+        
         if ball.colliderect(paddle) and ball_speed[1] > 0:
             ball_speed[1] = -ball_speed[1]
 
-        # Collisions with bricks
+        
         for brick in bricks:
             if ball.colliderect(brick):
                 ball_speed[1] = -ball_speed[1]
@@ -113,7 +113,7 @@ def main():
                 points += 1
                 break
 
-        # Game over if ball goes below the paddle
+       
         if ball.top >= HEIGHT:
             show_game_over()
             pygame.display.flip()
@@ -129,12 +129,12 @@ def main():
                             reset_game()
                             restart_pressed = True
 
-        # Draw everything
+        
         screen.fill((0, 0, 0))
         draw_objects()
         pygame.display.flip()
 
-        # Set the frame rate
+        
         clock.tick(60)
 
 if __name__ == "__main__":
